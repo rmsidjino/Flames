@@ -35,5 +35,7 @@ def create_app(config_name):
 	app.register_blueprint(main_blueprint)
 	from .auth import auth as auth_blueprint
 	app.register_blueprint(auth_blueprint, url_prefix="/auth")
+	from .mypage import mypage as mypage_blueprint
+	app.register_blueprint(mypage_blueprint, url_prefix="/mypage")
 	
 	return app
