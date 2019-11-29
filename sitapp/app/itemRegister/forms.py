@@ -6,6 +6,7 @@ from wtforms import ValidationError
 from ..models import Item
 from .. import db
 
+from wtforms import FileField
 
 class RegistrationForm(FlaskForm):
 	iid = StringField('itemid', validators=[Required(), Length(1, 64)])
@@ -14,4 +15,6 @@ class RegistrationForm(FlaskForm):
 							'numbers, dots or underscores')])
 	price = StringField('price', validators=[Required(), Length(1, 64)])
 	req = StringField('How many sparks do you need?', validators=[Required(), Length(1, 64)])
+	file = FileField('Upload an Image file', validators=[Required()])
 	submit = SubmitField('Register')
+

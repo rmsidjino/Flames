@@ -44,7 +44,6 @@ def create_app(config_name):
 	app.register_blueprint(mypage_blueprint, url_prefix="/mypage")
 	from .itemRegister import itemRegister as itemRegister_blueprint
 	app.register_blueprint(itemRegister_blueprint, url_prefix="/itemRegister")	
-	from .img import img as img_blueprint
-	app.register_blueprint(img_blueprint, url_prefix="/img")
+
 
 	return app

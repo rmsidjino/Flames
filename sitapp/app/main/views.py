@@ -25,7 +25,7 @@ def index():
 		form.name.data = ''
 		return redirect(url_for('.index'))
 	return render_template('index.html',
-							item_list = ['a','ab','abc'],
+							item_list = [i for i in db.get_collection('items').find()],
 							form=form, name=session.get('name'),
 							known=session.get('known', False),
 							current_time=datetime.utcnow())

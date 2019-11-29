@@ -195,12 +195,14 @@ class Item(UserMixin, object):
 	iname = ""
 	price = ""
 	req = ""
+	file=""
 
-	def __init__(self, iid,iname,price,req):
+	def __init__(self, iid,iname,price,req,file):
 		self.iid=iid
 		self.iname=iname
 		self.price=price
 		self.req=req
+		self.file=file
 
 	def item_search(iname):
 		collection = db.get_collection('item')
@@ -216,7 +218,8 @@ class Item(UserMixin, object):
 			'iname':self.iname,
 			### 20191112
 			'price':self.price,
-			'req':self.req
+			'req':self.req,
+			'file':self.file			
 		}
 		return dict_item
 
@@ -226,5 +229,5 @@ class Item(UserMixin, object):
 			self.iname = data['iname']
 			### 20191112
 			self.price=data['price']
-			###
 			self.req=data['req']
+			self.file=data['file']

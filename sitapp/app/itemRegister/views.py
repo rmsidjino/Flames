@@ -6,13 +6,17 @@ from . import itemRegister
 
 from .. import db
 
-
+from werkzeug import secure_filename
+from .. import fs
+from flask import send_file
 
 @itemRegister.route('/', methods=['GET', 'POST'])
 def register(): 
     form = RegistrationForm() 
     if form.validate_on_submit(): 
-        item = Item(iid=form.iid.data, iname=form.iname.data, price=form.price.data, req=form.req.data)
+        filename = secure_filename(form.file.data.filename)
+        oid = fs.put(form.file.data, content_type=form.file.data.content_type, filename=filename)
+        item = Item(iid=form.iid.data, iname=form.iname.data, price=form.price.data, req=form.req.data,file=filename)
         collection = db.get_collection('items')
         collection.insert_one(item.to_dict())
         return redirect(url_for('main.index'))
@@ -20,4 +24,8 @@ def register():
         ###
     return render_template('itemRegister/register.html', form=form)
 
- 
+
+@itemRegister.route('/images/<filename>')
+def image(filename):
+    gridout = fs.get_last_version(filename=filename)
+    return send_file(gridout, mimetype=gridout.content_type)
