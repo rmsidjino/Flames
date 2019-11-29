@@ -14,6 +14,11 @@ import pymongo
 conn = pymongo.MongoClient('mongodb://db:27017')
 db = conn.get_database('sitapp')
 
+from gridfs import GridFS
+from gridfs.errors import NoFile
+
+fs = GridFS(db)
+
 bootstrap = Bootstrap()
 mail = Mail()
 moment = Moment()
@@ -37,5 +42,7 @@ def create_app(config_name):
 	app.register_blueprint(auth_blueprint, url_prefix="/auth")
 	from .mypage import mypage as mypage_blueprint
 	app.register_blueprint(mypage_blueprint, url_prefix="/mypage")
-	
+	from .img import img as img_blueprint
+	app.register_blueprint(img_blueprint, url_prefix="/img")
+
 	return app
