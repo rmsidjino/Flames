@@ -97,3 +97,5 @@ def for_admins_only():
 @permission_required(Permission.MODERATE_COMMENTS)
 def for_moderators_only():
     return "For comment moderators!"
+
+

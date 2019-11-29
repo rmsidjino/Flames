@@ -8,12 +8,85 @@
     <h1>Ignition, {% if current_user.is_authenticated %}{{ current_user.username }}{% else %}Stranger{% endif %}!</h1>
 </div>
 {{ wtf.quick_form(form) }}
-<div class="page-header">
-     <ul>
-     	{% for item in item_list%}
-     	<li>{{item}}</li>
-    	{% endfor%}        
-     </ul>
+<div class="alert deal-link-tabs">
+    <a href="/deal/toomuchlike">많은추천</a>
+    <a href="/deal/toomuchtalk">많은댓글</a>
+    <a href="/deal/sample">체험/샘플</a>
+    <a href="/setting/alarm">알림설정</a>
+</div>
+
+
+<ul class="product post-list" data-more="/more">
+{% for item in item_list%}
+
+<li class="left clearfix post-li " id="post-233764" data-post-id="233764" data-action-uri="/channel/ruliweb/233764">
+    <div class="post-group ">
+
+<div class="product-img pull-left">   
+    <div class="product-img-box ">
+    <a href="/l/d/232475" data-label="뽐뿌-Norton 360 Deluxe ( 0)" data-product="232475" data-page="0" target="_blank">
+        
+        <img src="filename" alt="제품 이미지">      
+    </a>
+    </div>
+</div>
+
+<div class="product-body clearfix">
+    <div class="header">
+        <span class="label shop"><a href="/search/">#가성비</a></span>
+        <span class="label site">루리웹</span>
+        <small class="label-time pull-right text-muted">
+            
+            <i class="fa fa-clock-o fa-fw"></i> 마감:X/{{item['req']}}
+            
+        </small>
+        <p>
+            <!--header-->
+            <!--title-->
+            
+            <span class="primary-font item-name">
+                <a href="/l/d/232477" class="product-link" data-label="루리웹-사이터스2 / 무료" data-product="232477" data-post="233764" data-page="0" target="_blank">
+            
+                    
+                    아이템 이름:{{item['iname']}}
+                </a>
+            </span>
+            <!--/title-->
+        </p>
+    </div>
+        <p class="deal-price-info">
+            <small class="product-price">
+                {{item['price']}}
+            </small>
+        
+    </p>
+    <p>
+        <small class="deal-price-meta-info">
+        
+        
+        </small>
+    </p>
+    <p class="deal-meta-info">
+        <small class="text-muted">
+        
+        
+        
+        </small>
+    </p>
     
+</div>
+
+
+    
+<div class="opinion-box deal">
+    
+        
+    <button type="button" class="btn btn-xs btn-link" data-toggle="modal" data-target="#modal-login"><i class="fa fa-heart-o fa-fw"></i> Fire <span class="like-count"></span></button>
+        
+</div>
+
+</li>  
+    	{% endfor%}    
+</ul>
 </div>
 {% endblock %}
