@@ -24,6 +24,7 @@
                 <li><a href="/img"> Images </a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="/itemRegister">itemRegister           
                 <li><a href="/mypage">My page</a></li>
                 {% if current_user.is_authenticated %}
                  <li><a href="{{ url_for('auth.logout') }}">Sign Out</a></li>

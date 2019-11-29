@@ -193,14 +193,13 @@ class Permission:
 class Item(UserMixin, object):
 	iid = ""
 	iname = ""
-	description = ''
+	price = ""
 	req = ""
-	due_date = ""
 
-	def __init__(self, iid,iname,description,req):
+	def __init__(self, iid,iname,price,req):
 		self.iid=iid
 		self.iname=iname
-		self.description=discription
+		self.price=price
 		self.req=req
 
 	def item_search(iname):
@@ -211,44 +210,21 @@ class Item(UserMixin, object):
 		else:
 			return render_template('item.html',item=item)
 
-	##### 20191108
-	###
-    # 20191112
-	def can(self, permissions):
-		return self.role is not None and (self.role.permission & permissions) == permissions
-    
-	def is_administrator(self):
-		return self.can(Permission.ADMINISTATOR)
-	###
-
-	###
-	# 20191122
-# 20191028
 	def to_dict(self):
-		dict_user = {
-			'id': self.id, 
-			'username':self.username,
+		dict_item = {
+			'iid': self.iid, 
+			'iname':self.iname,
 			### 20191112
-			'role_id':self.role.name,
-			'role_permission':self.role.permission,
-			####
-			'password_hash':self.password_hash,
-			'confirmed':self.confirmed,
-			### 20191122
-			'member_since':self.member_since,
-			'last_seen':self.last_seen
+			'price':self.price,
+			'req':self.req
 		}
-		return dict_user
+		return dict_item
 
 	def from_dict(self, data):
 		if data is not None:
-			self.id = data['id']
-			self.username = data['username']
+			self.iid = data['iid']
+			self.iname = data['iname']
 			### 20191112
-			self.role = Role(data['role_id'], data['role_permission'])
+			self.price=data['price']
 			###
-			self.password_hash = data['password_hash']
-			self.confirmed = data['confirmed']
-			### 20191122
-			self.member_since = data.get('member_since')
-			self.last_seen = data.get('last_seen')
+			self.req=data['req']

@@ -9,10 +9,10 @@ from flask_login import LoginManager
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
-
+login_manager.login_view = 'itemRegister.login'
 import pymongo
 conn = pymongo.MongoClient('mongodb://db:27017')
-db = conn.get_database('sitapp')
+db = conn.get_database('flames')
 
 from gridfs import GridFS
 from gridfs.errors import NoFile
@@ -42,6 +42,8 @@ def create_app(config_name):
 	app.register_blueprint(auth_blueprint, url_prefix="/auth")
 	from .mypage import mypage as mypage_blueprint
 	app.register_blueprint(mypage_blueprint, url_prefix="/mypage")
+	from .itemRegister import itemRegister as itemRegister_blueprint
+	app.register_blueprint(itemRegister_blueprint, url_prefix="/itemRegister")	
 	from .img import img as img_blueprint
 	app.register_blueprint(img_blueprint, url_prefix="/img")
 
