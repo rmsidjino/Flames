@@ -14,6 +14,11 @@ from .. import db
 from .forms import EditProfileForm, EditProfileAdminForm
 from flask_login import current_user
 
+from werkzeug import secure_filename
+from .. import fs
+from flask import send_file
+
+
 @main.route('/', methods=['GET', 'POST'])
 def index():
 	form = SearchitemForm()
@@ -23,9 +28,14 @@ def index():
 			flash('Looks like you have changed your name!')
 		session['name'] = form.name.data
 		form.name.data = ''
+
+		'''
+		{file:url_for(main.image', filename=file) for file in fs.list()}
+		'''
 		return redirect(url_for('.index'))
 	return render_template('index.html',
 							item_list = [i for i in db.get_collection('items').find()],
+							file_lst = {file:url_for('main.image', filename=file) for file in fs.list()},
 							form=form, name=session.get('name'),
 							known=session.get('known', False),
 							current_time=datetime.utcnow())
@@ -99,3 +109,20 @@ def for_moderators_only():
     return "For comment moderators!"
 
 
+#@main.route('/search_hash')
+#def search_hash(hid):
+#     col_item = db.get_collection('hash_map')
+#     results = col_item.find({'hid':hid})
+#     return render_template('') ##
+
+
+#def search(iid):
+#     col_item = db.get_collection('item')
+#     results = col_item.find({'hash_map':})
+#     return render_template() ##
+
+
+@main.route('/images/<filename>')
+def image(filename):
+    gridout = fs.get_last_version(filename=filename)
+    return send_file(gridout, mimetype=gridout.content_type)
