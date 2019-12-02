@@ -191,43 +191,47 @@ class Permission:
 ###
 
 class Item(UserMixin, object):
-	iid = ""
-	iname = ""
-	price = ""
-	req = ""
-	file=""
+   iid = ""
+   iname = ""
+   price = ""
+   req = ""
+   hash_data=""
+   file=""
 
-	def __init__(self, iid,iname,price,req,file):
-		self.iid=iid
-		self.iname=iname
-		self.price=price
-		self.req=req
-		self.file=file
+   def __init__(self, iid,iname,price,req,file,hash_data):
+      self.iid=iid
+      self.iname=iname
+      self.price=price
+      self.req=req
+      self.hash_data=hash_data
+      self.file=file
 
-	def item_search(iname):
-		collection = db.get_collection('item')
-		results = collection.find_one({'iname':iname})
-		if results is not None:
-			return None
-		else:
-			return render_template('item.html',item=item)
+   def item_search(iname):
+      collection = db.get_collection('item')
+      results = collection.find_one({'iname':iname})
+      if results is not None:
+         return None
+      else:
+         return render_template('item.html',item=item)
 
-	def to_dict(self):
-		dict_item = {
-			'iid': self.iid, 
-			'iname':self.iname,
-			### 20191112
-			'price':self.price,
-			'req':self.req,
-			'file':self.file			
-		}
-		return dict_item
+   def to_dict(self):
+      dict_item = {
+         'iid': self.iid, 
+         'iname':self.iname,
+         ### 20191112
+         'price':self.price,
+         'req':self.req,
+         'file':self.file,
+         'hash_data':self.hash_data         
+      }
+      return dict_item
 
-	def from_dict(self, data):
-		if data is not None:
-			self.iid = data['iid']
-			self.iname = data['iname']
-			### 20191112
-			self.price=data['price']
-			self.req=data['req']
-			self.file=data['file']
+   def from_dict(self, data):
+      if data is not None:
+         self.iid = data['iid']
+         self.iname = data['iname']
+         ### 20191112
+         self.price=data['price']
+         self.req=data['req']
+         self.hash_data=data['hash_data']
+

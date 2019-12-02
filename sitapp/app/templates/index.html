@@ -32,7 +32,9 @@
 </div>
 <div class="product-body clearfix">
     <div class="header">
-        <span class="label shop"><a href="/search/">#가성비</a></span>
+        {% for item in item['hash_data'] %}
+            <a href="/search/{{item}}"> #{{item}} </a>        
+        {% endfor %}
             
             <i class="fa fa-clock-o fa-fw"></i> 마감:X/{{item['req']}}
             
@@ -75,7 +77,7 @@
 
     
 <div class="opinion-box deal">
-    <button type="button" class="btn btn-xs btn-link" data-toggle="modal" data-target="#modal-login"><i class="fa fa-heart-o fa-fw"></i> Fire <span class="like-count"></span></button>
+    <input type="submit" name="participation" value="Fire!!">
         
 </div>
 

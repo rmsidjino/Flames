@@ -108,6 +108,23 @@ def for_admins_only():
 def for_moderators_only():
     return "For comment moderators!"
 
+@main.route('/search/<item>', methods=['GET', 'POST'])
+def search(item):
+	form = SearchitemForm()
+	if form.validate_on_submit():
+		old_name = session.get('name')
+		if old_name is not None and old_name != form.name.data:
+			flash('Looks like you have changed your name!')
+		session['name'] = form.name.data
+		form.name.data = ''
+		return redirect(url_for('.index'))
+	return render_template('index.html',
+							item_list = [i for i in db.get_collection('items').find({'hash_data':item})],
+							file_lst = {file:url_for('main.image', filename=file) for file in fs.list()},
+							form=form, name=session.get('name'),
+							known=session.get('known', False),
+							current_time=datetime.utcnow())
+
 
 #@main.route('/search_hash')
 #def search_hash(hid):
