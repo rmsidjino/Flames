@@ -125,15 +125,14 @@ def search(item):
 							known=session.get('known', False),
 							current_time=datetime.utcnow())
 
-@main.route('/participation', methods=['GET', 'POST'])
+@main.route('/participation', methods=['POST'])
 def participation():
     if request.method == 'POST':
-        if request.form["submit_button"] == "Fire!!":
-            collection = db.get_collection('item_participation')
-            collection.insert_one({'username':"username"})
-        else:
-            return "par"
-    elif request.method == 'GET':
+        value=request.form['itemid']
+        collection = db.get_collection('participation')
+        collection.insert_one({'uid':current_user.id},{'iid':value})
+        return "par"
+    else:
         return "par"
 
 #@main.route('/search_hash')

@@ -77,15 +77,15 @@
 
     
 <div class="opinion-box deal">
-    <form method="post" action="/participation" >
-    <input type="hidden" name="itemid" value={{item}}>    
-    <input type="submit" name="submit_button" value="Fire!!">
-        
-</form>
+    <form method="POST" action="/participation">
+    {% set itemid={{item['iid']}} %}
+        <input type="hidden" name="itemid">
+        <button type="submit" >fire!!</button>
+    </form>
 </div>
 
 </li>  
-    	{% endfor%}    
+        {% endfor%}    
 
 </ul>
 </div>
