@@ -77,8 +77,11 @@
 
     
 <div class="opinion-box deal">
-    <input type="submit" name="participation" value="Fire!!">
+    <form method="post" action="/participation" >
+    <input type="hidden" name="itemid" value={{item}}>    
+    <input type="submit" name="submit_button" value="Fire!!">
         
+</form>
 </div>
 
 </li>  

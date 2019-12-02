@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import render_template, session, redirect, url_for, flash
+from flask import render_template, session, redirect, url_for, flash,request
 
 from . import main
 from .forms import SearchitemForm
@@ -125,6 +125,16 @@ def search(item):
 							known=session.get('known', False),
 							current_time=datetime.utcnow())
 
+@main.route('/participation', methods=['GET', 'POST'])
+def participation():
+    if request.method == 'POST':
+        if request.form["submit_button"] == "Fire!!":
+            collection = db.get_collection('item_participation')
+            collection.insert_one({'username':"username"})
+        else:
+            return "par"
+    elif request.method == 'GET':
+        return "par"
 
 #@main.route('/search_hash')
 #def search_hash(hid):
