@@ -11,4 +11,4 @@ from flask_login import current_user
 
 @mypage.route('/', methods=['GET', 'POST'])
 def mypage_main():
-    return "My Page"
+    return "Mypage"
