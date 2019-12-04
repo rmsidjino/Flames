@@ -2,19 +2,17 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import Required, Email, Length
 
-# 20191122
 from wtforms import SelectField, ValidationError
 from wtforms.validators import Regexp, EqualTo
 
 from .. import db
 
-######
+
 class SearchitemForm(FlaskForm):    
     name = StringField('What item are you interested in?', validators=[Required()])    
     submit = SubmitField('Search') 
-######
 
-# 20191122
+
 class EditProfileForm(FlaskForm):
 	username = StringField('Real name', validators=[Length(0, 64)])
 	submit = SubmitField('Submit')

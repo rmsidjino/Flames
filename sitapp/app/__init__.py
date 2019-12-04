@@ -24,7 +24,7 @@ mail = Mail()
 moment = Moment()
 
 def create_app(config_name):
-	app = Flask(__name__, instance_relative_config=True) # modified 20191108
+	app = Flask(__name__, instance_relative_config=True)
 	app.config.from_object(config[config_name])
 	app.config.from_pyfile('config.py') 
 	

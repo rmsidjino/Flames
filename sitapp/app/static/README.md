@@ -1,1 +1,1 @@
-# Static files of the web service
+# Static files of the web service(Flames)

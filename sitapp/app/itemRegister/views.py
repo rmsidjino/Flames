@@ -20,8 +20,6 @@ def register():
         collection = db.get_collection('items')
         collection.insert_one(item.to_dict())
         return redirect(url_for('main.index'))
-        #return redirect(url_for('itemRegister.login')) 
-        ###
     return render_template('itemRegister/register.html', form=form)
 
 

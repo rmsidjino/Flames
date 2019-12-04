@@ -22,11 +22,12 @@
             <ul class="nav navbar-nav">
                 <li><a href="/">Home</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">     
+            <ul class="nav navbar-nav navbar-right"> 
                 <li><a href="/mypage">My page</a></li>
-                <li><a href="/itemRegister">itemRegister</a></li>
+                {% if current_user.is_administrator %}    
+                 <li><a href="/itemRegister">itemRegister</a></li>
+                {% endif %}
                 {% if current_user.is_authenticated %}
-
                  <li><a href="{{ url_for('auth.logout') }}">Sign Out</a></li>
                 {% else %}
                  <li><a href="{{ url_for('auth.login') }}">Sign In</a></li>

@@ -5,7 +5,7 @@ from .forms import LoginForm, RegistrationForm
 from . import auth
 
 from .. import db
-from ..email import send_email # added 20191108
+from ..email import send_email 
 
 from flask_login import current_user
 
@@ -16,8 +16,7 @@ def login():
 		collection = db.get_collection('users')
 		results = collection.find_one({'id':form.email.data})
 		if results is not None:
-			user = User(form.email.data, "", "") # 20191112
-			#print(form.email.data)
+			user = User(form.email.data, "", "") 
 			user.from_dict(results)
 			if user is not None and user.verify_password(form.password.data):
 				login_user(user, form.remember_me.data)
@@ -40,13 +39,10 @@ def register():
         collection = db.get_collection('users')
         collection.insert_one(user.to_dict())
         
-        ### 20191108
         token = user.generate_confirmation_token()
         send_email(user.id, 'Confirm Your Account', 'auth/email/confirm', user=user, token=token)
         flash('A confirmation email has been sent to you by email.')
         return redirect(url_for('main.index'))
-        #return redirect(url_for('auth.login')) 
-        ###
     return render_template('auth/register.html', form=form)
 
     from flask_login import current_user 

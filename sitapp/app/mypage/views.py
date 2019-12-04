@@ -9,7 +9,6 @@ from ..models import User, Permission
 from flask_login import login_user, login_required, logout_user
 from ..decorators import admin_required, permission_required
 
-# 20191122
 from .. import db
 from .forms import EditProfileForm, EditProfileAdminForm
 from flask_login import current_user
@@ -27,21 +26,6 @@ def index():
 							name=session.get('name'),
 							known=session.get('known', False),
 							current_time=datetime.utcnow())
-# 20191122
-
-
-#@main.route('/search_hash')
-#def search_hash(hid):
-#     col_item = db.get_collection('hash_map')
-#     results = col_item.find({'hid':hid})
-#     return render_template('') ##
-
-
-#def search(iid):
-#     col_item = db.get_collection('item')
-#     results = col_item.find({'hash_map':})
-#     return render_template() ##
-
 
 @mypage.route('/images/<filename>')
 def image(filename):
