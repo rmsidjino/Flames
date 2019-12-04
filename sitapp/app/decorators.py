@@ -11,6 +11,8 @@ def permission_required(permission):
             if not current_user.can(permission):
                 abort(403)
             return f(*args, **kwargs)
+        # Renaming the function name:
+        decorated_function.__name__ = f.__name__
         return decorated_function
     return decorator
 

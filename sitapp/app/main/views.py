@@ -126,23 +126,26 @@ def search(item):
 							known=session.get('known', False),
 							current_time=datetime.utcnow())
 
-<<<<<<< HEAD
+#<<<<<<< HEAD
 @main.route('/participation', methods=['POST'])
+#@permission_required
 def participation():
     if request.method == 'POST':
         value=request.form['itemid']
+        #req=request.form['req']
         collection = db.get_collection('participation')
         collection.insert_one({'uid':current_user.id},{'iid':value})
         return "par"
     else:
         return "par"
-=======
+#=======
 @main.route('/participation/<userid>/<iid>', methods=['GET'])
-def participation(userid,iid):
+#@permission_required
+def participation_save(userid,iid):
     userid=current_user.id
     collection = db.get_collection('participation')
     collection.insert_one({'uid':userid,'iid':iid})
-    return 
+    return "Successfully participated!"
 #@main.route('/search_hash')
 #def search_hash(hid):
 #     col_item = db.get_collection('hash_map')
@@ -155,7 +158,7 @@ def participation(userid,iid):
 #     results = col_item.find({'hash_map':})
 #     return render_template() ##
 
->>>>>>> 2771e8a43b6191d65c18d88325cd5a4382e76d47
+#>>>>>>> 2771e8a43b6191d65c18d88325cd5a4382e76d47
 
 @main.route('/images/<filename>')
 def image(filename):

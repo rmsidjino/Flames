@@ -192,14 +192,16 @@ class Item(UserMixin, object):
    iname = ""
    price = ""
    req = ""
+   dday = ""
    hash_data = ""
    file = ""
 
-   def __init__(self, iid, iname, price, req, hash_data, file):
+   def __init__(self, iid, iname, price, req, dday, hash_data, file):
       self.iid=iid
       self.iname=iname
       self.price=price
       self.req=req
+      self.dday=dday
       self.hash_data=hash_data
       self.file=file
 
@@ -217,6 +219,7 @@ class Item(UserMixin, object):
          'iname':self.iname,
          'price':self.price,
          'req':self.req,
+         'dday':self.dday,
          'file':self.file,
          'hash_data':self.hash_data         
       }
@@ -228,5 +231,6 @@ class Item(UserMixin, object):
          self.iname = data['iname']
          self.price=data['price']
          self.req=data['req']
+         self.dday=date['dday']
          self.hash_data=data['hash_data']
 

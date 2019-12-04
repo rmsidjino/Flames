@@ -29,8 +29,7 @@
         {% for item in item['hash_data'] %}
             <a href="/search/{{item}}"> #{{item}} </a>        
         {% endfor %}
-            <i class="fa fa-clock-o fa-fw"></i> 마감:{{len([x for x in item_user if x['iid'] == item['iid']])}}/{{item['req']}}
-            
+
         <p>
             <!--header-->
             <!--title-->
@@ -39,16 +38,23 @@
                 <a href="/l/d/232477" class="product-link" data-label="루리웹-사이터스2 / 무료" data-product="232477" data-post="233764" data-page="0" target="_blank">
             
                     
-                    아이템 이름:{{item['iname']}}
+                    아이템이름:{{item['iname']}}
                 </a>
             </span>
             <!--/title-->
         </p>
 
+            <i class="fa fa-clock-o" aria-hidden="true"></i> 
+            <small class="deadline">
+            <br>마감인원 : X/{{item['req']}}
+            <br>마감 D-x
+            </small>
+
+
     </div>
         <p class="deal-price-info">
             <small class="product-price">
-                {{item['price']}}
+                가격 : {{item['price']}}
             </small>
         
     </p>
