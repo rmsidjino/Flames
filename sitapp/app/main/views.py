@@ -35,6 +35,7 @@ def index():
 	return render_template('index.html',
 							item_list = [i for i in db.get_collection('items').find()],
 							file_lst = {file:url_for('main.image', filename=file) for file in fs.list()},
+							item_user=[i for i in db.get_collection('participation').find()],
 							form=form, name=session.get('name'),
 							known=session.get('known', False),
 							current_time=datetime.utcnow())
@@ -120,10 +121,12 @@ def search(item):
 	return render_template('index.html',
 							item_list = [i for i in db.get_collection('items').find({'hash_data':item})],
 							file_lst = {file:url_for('main.image', filename=file) for file in fs.list()},
+							item_user=[i for i in db.get_collection('participation').find()],
 							form=form, name=session.get('name'),
 							known=session.get('known', False),
 							current_time=datetime.utcnow())
 
+<<<<<<< HEAD
 @main.route('/participation', methods=['POST'])
 def participation():
     if request.method == 'POST':
@@ -133,6 +136,26 @@ def participation():
         return "par"
     else:
         return "par"
+=======
+@main.route('/participation/<userid>/<iid>', methods=['GET'])
+def participation(userid,iid):
+    userid=current_user.id
+    collection = db.get_collection('participation')
+    collection.insert_one({'uid':userid,'iid':iid})
+    return 
+#@main.route('/search_hash')
+#def search_hash(hid):
+#     col_item = db.get_collection('hash_map')
+#     results = col_item.find({'hid':hid})
+#     return render_template('') ##
+
+
+#def search(iid):
+#     col_item = db.get_collection('item')
+#     results = col_item.find({'hash_map':})
+#     return render_template() ##
+
+>>>>>>> 2771e8a43b6191d65c18d88325cd5a4382e76d47
 
 @main.route('/images/<filename>')
 def image(filename):

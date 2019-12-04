@@ -29,8 +29,7 @@
         {% for item in item['hash_data'] %}
             <a href="/search/{{item}}"> #{{item}} </a>        
         {% endfor %}
-            
-            <i class="fa fa-clock-o fa-fw"></i> 마감:X/{{item['req']}}
+            <i class="fa fa-clock-o fa-fw"></i> 마감:{{len([x for x in item_user if x['iid'] == item['iid']])}}/{{item['req']}}
             
         <p>
             <!--header-->
@@ -71,10 +70,7 @@
 
     
 <div class="opinion-box deal">
-    <form method="POST" action="/participation">
-        <input type="hidden" name="itemid">
-        <button type="submit" >fire!!</button>
-    </form>
+   <a href="/participation/<userid>/{{item['iid']}}"> fire!! </a> 
 </div>
 
 </li>  
