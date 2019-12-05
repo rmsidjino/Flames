@@ -29,6 +29,8 @@ def login():
 def logout():
 	logout_user()
 	flash('You have been logged out.')
+	collection = db.get_collection('items')
+	collection.update_many({}, {'$set': {'participation': 'no'}})
 	return redirect(url_for('main.index'))
 
 @auth.route('/register', methods=['GET', 'POST'])
@@ -37,8 +39,7 @@ def register():
     if form.validate_on_submit(): 
         user = User(email=form.email.data, username=form.username.data, password=form.password.data)
         collection = db.get_collection('users')
-        collection.insert_one(user.to_dict())
-        
+        collection.insert_one(user.to_dict())        
         token = user.generate_confirmation_token()
         send_email(user.id, 'Confirm Your Account', 'auth/email/confirm', user=user, token=token)
         flash('A confirmation email has been sent to you by email.')
