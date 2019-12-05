@@ -45,8 +45,6 @@ def register():
         return redirect(url_for('main.index'))
     return render_template('auth/register.html', form=form)
 
-    from flask_login import current_user 
-    
 @auth.route('/confirm/<token>') 
 @login_required 
 def confirm(token): 

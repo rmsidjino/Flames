@@ -35,7 +35,6 @@ def index():
 	return render_template('index.html',
 							item_list = [i for i in db.get_collection('items').find()],
 							file_lst = {file:url_for('main.image', filename=file) for file in fs.list()},
-							item_user=[i for i in db.get_collection('participation').find()],
 							form=form, name=session.get('name'),
 							known=session.get('known', False),
 							current_time=datetime.utcnow())
@@ -121,44 +120,29 @@ def search(item):
 	return render_template('index.html',
 							item_list = [i for i in db.get_collection('items').find({'hash_data':item})],
 							file_lst = {file:url_for('main.image', filename=file) for file in fs.list()},
-							item_user=[i for i in db.get_collection('participation').find()],
 							form=form, name=session.get('name'),
 							known=session.get('known', False),
 							current_time=datetime.utcnow())
 
 #<<<<<<< HEAD
-@main.route('/participation', methods=['POST'])
-#@permission_required
-def participation():
-    if request.method == 'POST':
-        value=request.form['itemid']
-        #req=request.form['req']
-        collection = db.get_collection('participation')
-        collection.insert_one({'uid':current_user.id},{'iid':value})
-        return "par"
-    else:
-        return "par"
-#=======
 @main.route('/participation/<userid>/<iid>', methods=['GET'])
-#@permission_required
-def participation_save(userid,iid):
-    userid=current_user.id
-    collection = db.get_collection('participation')
-    collection.insert_one({'uid':userid,'iid':iid})
-    return "Successfully participated!"
-#@main.route('/search_hash')
-#def search_hash(hid):
-#     col_item = db.get_collection('hash_map')
-#     results = col_item.find({'hid':hid})
-#     return render_template('') ##
+def participation(userid,iid):
+	if current_user.is_authenticated:
+		userid=current_user.id
+		collection = db.get_collection('users')
+		collection.update_one({'id':userid},{'$push':{'participation_iid':iid}})
+		collection = db.get_collection('items')
+		collection.update_one({'iid':iid},{'$push':{'participation_uid':userid}})
+		result=[i for i in collection.find({'iid':iid})]
+		collection.update_one({'iid':iid},{'$set':{'participation_num':len(result[0]['participation_uid'])}})
+		return redirect(url_for('.index'))
+	else:
+		flash("You must login!!")
+		return render_template('need_login.html')
 
-
-#def search(iid):
-#     col_item = db.get_collection('item')
-#     results = col_item.find({'hash_map':})
-#     return render_template() ##
-
-#>>>>>>> 2771e8a43b6191d65c18d88325cd5a4382e76d47
+@main.route('/<item>', methods=['GET'])
+def how_many(item_user,iid):
+	return render_template('index.html',how_many=len([x for x in item_user if x['iid'] == item['iid']]))
 
 @main.route('/images/<filename>')
 def image(filename):

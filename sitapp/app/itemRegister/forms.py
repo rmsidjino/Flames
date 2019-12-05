@@ -15,7 +15,6 @@ class RegistrationForm(FlaskForm):
                      'numbers, dots or underscores')])
    price = StringField('price', validators=[Required(), Length(1, 64)])
    req = StringField('How many sparks do you need?', validators=[Required(), Length(1, 64)])
-   dday = StringField('Set d-day', validators=[Required(), Length(1, 64)])
    file = FileField('Upload an Image file', validators=[Required()])
    hash = StringField("Input hash tag!!(Insert a blank space each time you type a hashtag)",validators=[])
    submit = SubmitField('Register')

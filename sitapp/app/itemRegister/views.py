@@ -19,7 +19,7 @@ def register():
         item = Item(iid=form.iid.data, iname=form.iname.data, price=form.price.data, req=form.req.data, dday=form.dday.data, file=filename, hash_data=form.hash.data.split())
         collection = db.get_collection('items')
         collection.insert_one(item.to_dict())
-        return redirect(url_for('main.index'))
+        return redirect(url_for('itemRegister.register'))
     return render_template('itemRegister/register.html', form=form)
 
 

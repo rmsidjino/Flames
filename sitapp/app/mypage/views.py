@@ -20,10 +20,22 @@ from flask import send_file
 
 @mypage.route('/', methods=['GET', 'POST'])
 def index():
+	form = SearchitemForm()
+	if form.validate_on_submit():
+		old_name = session.get('name')
+		if old_name is not None and old_name != form.name.data:
+			flash('Looks like you have changed your name!')
+		session['name'] = form.name.data
+		form.name.data = ''
+
+		'''
+		{file:url_for(main.image', filename=file) for file in fs.list()}
+		'''
+		return redirect(url_for('.index'))
 	return render_template('mypage.html',
 							item_list = [i for i in db.get_collection('items').find()],
 							file_lst = {file:url_for('main.image', filename=file) for file in fs.list()},
-							name=session.get('name'),
+							form=form, name=session.get('name'),
 							known=session.get('known', False),
 							current_time=datetime.utcnow())
 
