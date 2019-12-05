@@ -23,9 +23,12 @@
                 <li><a href="/">Home</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right"> 
-                {% if current_user.is_administrator %}  
+                {% if current_user.is_authenticated %}  
                  <li><a href="/mypage">My page</a></li>  
+                 {% if current_user.id=='21300704@handong.edu' %}  
+                 
                  <li><a href="/itemRegister">itemRegister</a></li>
+                {% endif %}
                 {% endif %}
                 {% if current_user.is_authenticated %}
                  <li><a href="{{ url_for('auth.logout') }}">Sign Out</a></li>

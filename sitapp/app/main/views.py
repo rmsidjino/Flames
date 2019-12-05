@@ -138,14 +138,11 @@ def search(item):
 def participation(userid,iid):
 	if current_user.is_authenticated:
 		userid=current_user.id
-		collection = db.get_collection('users')
-		collection.update_one({'id':userid},{'$push':{'participation_iid':iid}})
 		collection = db.get_collection('items')
 		collection.update_one({'iid':iid},{'$push':{'participation_uid':userid}})
 		result=[i for i in collection.find({'iid':iid})]
 		num=str(len(result[0]['participation_uid']))
 		collection.update_one({'iid':iid},{'$set':{'participation_num':num}})
-		collection.update_one({'iid':iid},{'$set':{'participation':'yes'}})
 		return redirect(url_for('.index'))
 	else:
 		flash("You must login!!")
@@ -155,22 +152,16 @@ def participation(userid,iid):
 def participation_out(userid,iid):
 	if current_user.is_authenticated:
 		userid=current_user.id
-		collection = db.get_collection('users')
-		collection.update_one({'id':userid},{'$pull':{'participation_iid':iid}})
 		collection = db.get_collection('items')
 		collection.update_one({'iid':iid},{'$pull':{'participation_uid':userid}})
 		result=[i for i in collection.find({'iid':iid})]
 		num=str(len(result[0]['participation_uid']))
 		collection.update_one({'iid':iid},{'$set':{'participation_num':num}})
-		collection.update_one({'iid':iid},{'$set':{'participation':'no'}})
 		return redirect(url_for('.index'))
 	else:
 		flash("You must login!!")
 		return render_template('need_login.html')
 
-@main.route('/<item>', methods=['GET'])
-def how_many(item_user,iid):
-	return render_template('index.html',how_many=len([x for x in item_user if x['iid'] == item['iid']]))
 
 @main.route('/images/<filename>')
 def image(filename):
