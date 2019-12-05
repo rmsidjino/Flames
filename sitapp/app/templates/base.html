@@ -23,8 +23,8 @@
                 <li><a href="/">Home</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right"> 
-                <li><a href="/mypage">My page</a></li>
-                {% if current_user.is_administrator %}    
+                {% if current_user.is_administrator %}  
+                 <li><a href="/mypage">My page</a></li>  
                  <li><a href="/itemRegister">itemRegister</a></li>
                 {% endif %}
                 {% if current_user.is_authenticated %}

@@ -63,7 +63,15 @@
 
     
 <div class="opinion-box deal">
-   <a href="/participation/<userid>/{{item['iid']}}"><img src="/static/ignition.png" width="82" height="86" title="ignition" alt="ignition"> </a> 
+    {% if item['participation']=="no" %}
+        {% if item['participation_num']==item['req'] %}
+            <img src="/static/burnout.jpg" width="82" height="86" title="burnout" alt="burnout">
+        {% else %}
+            <a href="/participation/<userid>/{{item['iid']}}"><img src="/static/ignition.png" width="82" height="86" title="ignition" alt="ignition"> </a> 
+        {% endif %}
+    {% else %}
+       <a href="/participation_out/<userid>/{{item['iid']}}"><img src="/static/ignition_delete.png" width="82" height="86" title="extinguish" alt="extinguish"> </a> 
+    {% endif %}
 </div>
 
 </li>  
