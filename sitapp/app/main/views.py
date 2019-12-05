@@ -135,10 +135,24 @@ def participation(userid,iid):
 		collection.update_one({'iid':iid},{'$push':{'participation_uid':userid}})
 		result=[i for i in collection.find({'iid':iid})]
 		collection.update_one({'iid':iid},{'$set':{'participation_num':len(result[0]['participation_uid'])}})
+		collection.update_one({'iid':iid},{'$set':{'participation':'yes'}})
 		return redirect(url_for('.index'))
 	else:
 		flash("You must login!!")
 		return render_template('need_login.html')
+
+@main.route('/participation_out/<userid>/<iid>', methods=['GET'])
+def participation_out(userid,iid):
+	userid=current_user.id
+	collection = db.get_collection('users')
+	collection.update_one({'id':userid},{'$pull':{'participation_iid':iid}})
+	collection = db.get_collection('items')
+	collection.update_one({'iid':iid},{'$pull':{'participation_uid':userid}})
+	result=[i for i in collection.find({'iid':iid})]
+	collection.update_one({'iid':iid},{'$set':{'participation_num':len(result[0]['participation_uid'])}})
+	collection.update_one({'iid':iid},{'$set':{'participation':'no'}})
+	return redirect(url_for('.index'))
+
 
 @main.route('/<item>', methods=['GET'])
 def how_many(item_user,iid):

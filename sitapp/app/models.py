@@ -200,6 +200,7 @@ class Item(UserMixin, object):
    file=""
    participation_uid=[]
    participation_num=0 
+   participation="no"
 
 
    def __init__(self, iid,iname,price,req,file,hash_data):
@@ -228,7 +229,8 @@ class Item(UserMixin, object):
          'file':self.file,
          'hash_data':self.hash_data,
          'participation_uid':self.participation_uid, 
-         'participation_num':self.participation_num       
+         'participation_num':self.participation_num,
+         'participation':self.participation      
       }
       return dict_item
 
@@ -242,4 +244,5 @@ class Item(UserMixin, object):
          self.hash_data=data['hash_data']
          self.participation_uid=data['participation_uid']
          self.participation_num=data['participation_num']
+         self.participation=data['participation']
 

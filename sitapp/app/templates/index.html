@@ -48,7 +48,7 @@
     </div>
         <p class="deal-price-info">
             <small class="product-price">
-                {{item['price']}}
+                가격:{{item['price']}}
             </small>
         
     </p>
@@ -70,7 +70,11 @@
 
     
 <div class="opinion-box deal">
+    {% if item['participation']=="no" %}
    <a href="/participation/<userid>/{{item['iid']}}"><img src="/static/ignition.png" width="82" height="86" title="ignition" alt="ignition"> </a> 
+    {% else %}
+       <a href="/participation_out/<userid>/{{item['iid']}}"><img src="/static/ignition_delete.png" width="82" height="86" title="extinguish" alt="extinguish"> </a> 
+    {% endif %}
 </div>
 
 </li>  
