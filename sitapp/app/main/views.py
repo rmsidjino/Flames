@@ -3,7 +3,6 @@ from flask import render_template, session, redirect, url_for, flash,request
 
 from . import main
 from .forms import SearchitemForm
-
 from ..models import User, Permission
 
 from flask_login import login_user, login_required, logout_user
@@ -16,7 +15,10 @@ from flask_login import current_user
 from werkzeug import secure_filename
 from .. import fs
 from flask import send_file
+from bson.objectid import ObjectId
 
+from datetime import datetime
+from dateutil.relativedelta import *
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -32,6 +34,7 @@ def index():
 		{file:url_for(main.image', filename=file) for file in fs.list()}
 		'''
 		return redirect(url_for('.index'))
+	current_time=datetime.now()
 	try:
 		collection = db.get_collection('users')
 		results = collection.find({'id':current_user.id})
@@ -46,7 +49,7 @@ def index():
 							file_lst = {file:url_for('main.image', filename=file) for file in fs.list()},
 							form=form, name=session.get('name'),
 							known=session.get('known', False),
-							current_time=datetime.utcnow())
+							current_time=current_time)
 
 @main.route('/user/<username>')
 def user(username):
@@ -139,10 +142,10 @@ def participation(userid,iid):
 	if current_user.is_authenticated:
 		userid=current_user.id
 		collection = db.get_collection('items')
-		collection.update_one({'iid':iid},{'$push':{'participation_uid':userid}})
-		result=[i for i in collection.find({'iid':iid})]
+		collection.update_one({'_id':ObjectId(iid)},{'$push':{'participation_uid':userid}})
+		result=[i for i in collection.find({'_id':ObjectId(iid)})]
 		num=str(len(result[0]['participation_uid']))
-		collection.update_one({'iid':iid},{'$set':{'participation_num':num}})
+		collection.update_one({'_id':ObjectId(iid)},{'$set':{'participation_num':num}})
 		return redirect(url_for('.index'))
 	else:
 		flash("You must login!!")
@@ -153,10 +156,10 @@ def participation_out(userid,iid):
 	if current_user.is_authenticated:
 		userid=current_user.id
 		collection = db.get_collection('items')
-		collection.update_one({'iid':iid},{'$pull':{'participation_uid':userid}})
-		result=[i for i in collection.find({'iid':iid})]
+		collection.update_one({'_id':ObjectId(iid)},{'$pull':{'participation_uid':userid}})
+		result=[i for i in collection.find({'_id':ObjectId(iid)})]
 		num=str(len(result[0]['participation_uid']))
-		collection.update_one({'iid':iid},{'$set':{'participation_num':num}})
+		collection.update_one({'_id':ObjectId(iid)},{'$set':{'participation_num':num}})
 		return redirect(url_for('.index'))
 	else:
 		flash("You must login!!")

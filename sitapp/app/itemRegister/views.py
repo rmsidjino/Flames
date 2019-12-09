@@ -1,9 +1,10 @@
 from flask import render_template, redirect, request, url_for, flash
 from flask_login import login_user, login_required, logout_user
+from datetime import datetime
 from ..models import Item
 from .forms import RegistrationForm
 from . import itemRegister
-
+from dateutil.relativedelta import *
 from .. import db
 
 from werkzeug import secure_filename
@@ -16,7 +17,9 @@ def register():
     if form.validate_on_submit(): 
         filename = secure_filename(form.file.data.filename)
         oid = fs.put(form.file.data, content_type=form.file.data.content_type, filename=filename)
-        item = Item(iid=form.iid.data, iname=form.iname.data, price=form.price.data, req=form.req.data, file=filename, hash_data=form.hash.data.split())
+        now = datetime.now()
+        enddate=now+relativedelta(days=+1)
+        item = Item(iname=form.iname.data, price=form.price.data, req=form.req.data, file=filename, hash_data=form.hash.data.split(";"),date=enddate)
         collection = db.get_collection('items')
         collection.insert_one(item.to_dict())
         return redirect(url_for('itemRegister.register'))

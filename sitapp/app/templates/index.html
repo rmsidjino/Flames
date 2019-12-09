@@ -10,9 +10,11 @@
 {{ wtf.quick_form(form) }}
 
 
-<ul class="product post-list" data-more="/more">
+<ul class="product post-list" data-more="/more" style="height: :800px;">
 {% for item in item_list%}
+<p>
 
+</p>
     <div class="post-group ">
 
 <div class="product-img pull-left">   
@@ -57,24 +59,36 @@
         
         </small>
     </p>
-    <p class="deal-meta-info">
-        <small class="text-muted">
+           <p class="deal-price-info">
+            <small class="product-price">
+                마감시간:{{item['date']}}
+            </small>
         
+    </p>
+    <p>
+        <small class="deal-price-meta-info">
         
         
         </small>
-    </p>   
-</div>
-<div class="opinion-box deal">
+    </p>
+ 
+    {% if item['date']<=current_time %}
+            {% if item['participation_num']==item['req'] %}
+     <img src="/static/burnout.jpg" width="82" height="86" title="burnout" alt="burnout">
+             {% else %}
+     <img src="/static/fail.png" width="82" height="86" title="fail" alt="fail">     
+         {% endif %}        
+    {% else %}
     {% if item['participation']=="no" %}
         {% if item['participation_num']==item['req'] %}
             <img src="/static/burnout.jpg" width="82" height="86" title="burnout" alt="burnout">
         {% else %}
-            <a href="/participation/<userid>/{{item['iid']}}"><img src="/static/ignition.png" width="82" height="86" title="ignition" alt="ignition"> </a> 
+            <a href="/participation/<userid>/{{item['_id']}}"><img src="/static/ignition.png" width="82" height="86" title="ignition" alt="ignition"> </a> 
         {% endif %}
     {% else %}
-       <a href="/participation_out/<userid>/{{item['iid']}}"><img src="/static/ignition_delete.png" width="82" height="86" title="extinguish" alt="extinguish"> </a> 
+       <a href="/participation_out/<userid>/{{item['_id']}}"><img src="/static/ignition_delete.png" width="82" height="86" title="extinguish" alt="extinguish"> </a> 
     {% endif %}
+        {% endif %}
 </div>
 
 </li>  

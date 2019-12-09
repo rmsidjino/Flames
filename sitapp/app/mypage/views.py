@@ -28,6 +28,7 @@ def index():
 		session['name'] = form.name.data
 		form.name.data = ''
 		return redirect(url_for('.mypage'))
+	current_time=datetime.now()
 	try:
 		collection = db.get_collection('users')
 		results = collection.find({'id':current_user.id})

@@ -9,7 +9,6 @@ from .. import db
 from wtforms import FileField
 
 class RegistrationForm(FlaskForm):
-   iid = StringField('itemid', validators=[Required(), Length(1, 64)])
    iname = StringField('iname', validators=[Required(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
                      'inames must have only letters, '
                      'numbers, dots or underscores')])

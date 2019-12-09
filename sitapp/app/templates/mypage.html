@@ -3,10 +3,11 @@
 
 {% block title %}sitapp{% endblock %}
 {% block page_content %}
-<ul class="product post-list" data-more="/more">
+<ul class="product post-list" data-more="/more" style="height: :800px;">
 {% for item in item_list%}
+<p>
 
-<li class="left clearfix post-li " id="post-233764" data-post-id="233764" data-action-uri="/channel/ruliweb/233764">
+</p>
     <div class="post-group ">
 
 <div class="product-img pull-left">   
@@ -41,7 +42,7 @@
     </div>
         <p class="deal-price-info">
             <small class="product-price">
-                {{item['price']}}
+                가격:{{item['price']}}
             </small>
         
     </p>
@@ -51,27 +52,32 @@
         
         </small>
     </p>
-    <p class="deal-meta-info">
-        <small class="text-muted">
+           <p class="deal-price-info">
+            <small class="product-price">
+                마감시간:{{item['date']}}
+            </small>
         
+    </p>
+    <p>
+        <small class="deal-price-meta-info">
         
         
         </small>
-    </p>   
-</div>
-
-
-    
-<div class="opinion-box deal">
+    </p>
+ 
+    {% if item['date']<=current_time %}
+     <img src="/static/burnout.jpg" width="82" height="86" title="burnout" alt="burnout">
+    {% else %}
     {% if item['participation']=="no" %}
         {% if item['participation_num']==item['req'] %}
             <img src="/static/burnout.jpg" width="82" height="86" title="burnout" alt="burnout">
         {% else %}
-            <a href="/participation/<userid>/{{item['iid']}}"><img src="/static/ignition.png" width="82" height="86" title="ignition" alt="ignition"> </a> 
+            <a href="/participation/<userid>/{{item['_id']}}"><img src="/static/ignition.png" width="82" height="86" title="ignition" alt="ignition"> </a> 
         {% endif %}
     {% else %}
-       <a href="/participation_out/<userid>/{{item['iid']}}"><img src="/static/ignition_delete.png" width="82" height="86" title="extinguish" alt="extinguish"> </a> 
+       <a href="/participation_out/<userid>/{{item['_id']}}"><img src="/static/ignition_delete.png" width="82" height="86" title="extinguish" alt="extinguish"> </a> 
     {% endif %}
+        {% endif %}
 </div>
 
 </li>  

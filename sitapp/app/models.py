@@ -192,7 +192,6 @@ class Permission:
 ###
 
 class Item(UserMixin, object):
-   iid = ""
    iname = ""
    price = ""
    req = ""
@@ -201,15 +200,16 @@ class Item(UserMixin, object):
    participation_uid=[]
    participation_num=0 
    participation="no"
+   date=""
 
 
-   def __init__(self, iid,iname,price,req,file,hash_data):
-      self.iid=iid
+   def __init__(self,iname,price,req,file,hash_data,date):
       self.iname=iname
       self.price=price
       self.req=req
       self.hash_data=hash_data
       self.file=file
+      self.date=date
 
    def item_search(iname):
       collection = db.get_collection('item')
@@ -221,11 +221,11 @@ class Item(UserMixin, object):
 
    def to_dict(self):
       dict_item = {
-         'iid': self.iid, 
          'iname':self.iname,
          ### 20191112
          'price':self.price,
          'req':self.req,
+         'date':self.date,
          'file':self.file,
          'hash_data':self.hash_data,
          'participation_uid':self.participation_uid, 
@@ -236,11 +236,11 @@ class Item(UserMixin, object):
 
    def from_dict(self, data):
       if data is not None:
-         self.iid = data['iid']
          self.iname = data['iname']
          ### 20191112
          self.price=data['price']
          self.req=data['req']
+         self.date=date['date']
          self.hash_data=data['hash_data']
          self.participation_uid=data['participation_uid']
          self.participation_num=data['participation_num']
