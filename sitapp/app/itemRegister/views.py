@@ -19,7 +19,7 @@ def register():
         oid = fs.put(form.file.data, content_type=form.file.data.content_type, filename=filename)
         now = datetime.now()
         enddate=now+relativedelta(days=+1)
-        item = Item(iname=form.iname.data, price=form.price.data, req=form.req.data, file=filename, hash_data=form.hash.data.split(";"),date=enddate)
+        item = Item(iname=form.iname.data, price=form.price.data, req=form.req.data, file=filename, hash_data=form.hash.data.split(";"),date=enddate.strftime('%Y-%m-%d %H:%M:%S'))
         collection = db.get_collection('items')
         collection.insert_one(item.to_dict())
         return redirect(url_for('itemRegister.register'))

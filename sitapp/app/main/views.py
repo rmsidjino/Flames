@@ -34,7 +34,7 @@ def index():
 		{file:url_for(main.image', filename=file) for file in fs.list()}
 		'''
 		return redirect(url_for('.index'))
-	current_time=datetime.now()
+	current_time=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 	try:
 		collection = db.get_collection('users')
 		results = collection.find({'id':current_user.id})

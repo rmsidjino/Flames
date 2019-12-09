@@ -37,9 +37,7 @@
             <!--title-->
             
             <span class="primary-font item-name">
-                <a href="/l/d/232477" class="product-link" data-label="루리웹-사이터스2 / 무료" data-product="232477" data-post="233764" data-page="0" target="_blank">
-            
-                    
+                <a>
                     아이템 이름:{{item['iname']}}
                 </a>
             </span>
@@ -48,16 +46,11 @@
 
     </div>
         <p class="deal-price-info">
-            <small class="product-price">
                 가격:{{item['price']}}
-            </small>
-        
     </p>
     <p>
-        <small class="deal-price-meta-info">
         
-        
-        </small>
+            마감:{{item['participation_num']}}/{{item['req']}}
     </p>
            <p class="deal-price-info">
             <small class="product-price">
@@ -65,12 +58,7 @@
             </small>
         
     </p>
-    <p>
-        <small class="deal-price-meta-info">
-        
-        
-        </small>
-    </p>
+
  
     {% if item['date']<=current_time %}
             {% if item['participation_num']==item['req'] %}

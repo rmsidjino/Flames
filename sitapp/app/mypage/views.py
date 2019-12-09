@@ -28,7 +28,7 @@ def index():
 		session['name'] = form.name.data
 		form.name.data = ''
 		return redirect(url_for('.mypage'))
-	current_time=datetime.now()
+	current_time=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 	try:
 		collection = db.get_collection('users')
 		results = collection.find({'id':current_user.id})
@@ -43,7 +43,7 @@ def index():
 							file_lst = {file:url_for('main.image', filename=file) for file in fs.list()},
 							form=form, name=session.get('name'),
 							known=session.get('known', False),
-							current_time=datetime.utcnow())
+							current_time=current_time)
 
 @mypage.route('/participation/<userid>/<iid>', methods=['GET'])
 def participation(userid,iid):
