@@ -129,12 +129,13 @@ def search(item):
 		session['name'] = form.name.data
 		form.name.data = ''
 		return redirect(url_for('.index'))
+	current_time=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 	return render_template('index.html',
 							item_list = [i for i in db.get_collection('items').find({'hash_data':item})],
 							file_lst = {file:url_for('main.image', filename=file) for file in fs.list()},
 							form=form, name=session.get('name'),
 							known=session.get('known', False),
-							current_time=datetime.utcnow())
+							current_time=current_time)
 
 #<<<<<<< HEAD
 @main.route('/participation/<userid>/<iid>', methods=['GET'])

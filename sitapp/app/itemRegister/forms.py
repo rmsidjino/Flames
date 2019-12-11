@@ -15,5 +15,5 @@ class RegistrationForm(FlaskForm):
    price = StringField('price', validators=[Required(), Length(1, 64)])
    req = StringField('How many sparks do you need?', validators=[Required(), Length(1, 64)])
    file = FileField('Upload an Image file', validators=[Required()])
-   hash = StringField("Input hash tag!!(Insert a blank space each time you type a hashtag)",validators=[])
+   hash = StringField("Input hash tag!!(Insert a blank space each time you type a semicolon)",validators=[])
    submit = SubmitField('Register')
